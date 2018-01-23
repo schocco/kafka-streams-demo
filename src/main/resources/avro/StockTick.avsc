@@ -1,0 +1,94 @@
+{
+  "type": "record",
+  "name": "StockTick",
+  "namespace": "demo.kstreams",
+  "fields": [
+    {
+      "name": "Symbol",
+      "type": "string"
+    },
+    {
+      "name": "Date",
+      "type": {
+        "type": "long",
+        "connect.version": 1,
+        "connect.name": "org.apache.kafka.connect.data.Timestamp",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "Open",
+      "type": {
+        "type": "bytes",
+        "scale": 3,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "3"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    },
+    {
+      "name": "High",
+      "type": {
+        "type": "bytes",
+        "scale": 3,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "3"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    },
+    {
+      "name": "Low",
+      "type": {
+        "type": "bytes",
+        "scale": 3,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "3"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    },
+    {
+      "name": "Close",
+      "type": {
+        "type": "bytes",
+        "scale": 3,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "3"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    },
+    {
+      "name": "Volume",
+      "type": {
+        "type": "bytes",
+        "scale": 0,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "0"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    },
+    {
+      "name": "OpenInt",
+      "type": [
+        "null",
+        "int"
+      ],
+      "default": null
+    }
+  ],
+  "connect.name": "demo.kstreams.StockTick"
+}

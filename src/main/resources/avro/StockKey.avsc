@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "StockKey",
+  "namespace": "demo.kstreams",
+  "fields": [
+    {
+      "name": "Symbol",
+      "type": "string"
+    }
+  ],
+  "connect.name": "demo.kstreams.StockKey"
+}
