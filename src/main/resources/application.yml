@@ -6,23 +6,25 @@ spring.cloud.stream.kstream:
       commit.interval.ms: 1000
       key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
       value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
-      schema.registry.url: http://172.18.0.1:8081
-spring.cloud.stream.bindings:
-  output:
-    destination: stocks.count
-    content-type: application/*+avro
-    producer:
-      keySerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
-      valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
-      headerMode: raw
-      useNativeEncoding: true
-  input:
-    group: so8300replay
-    destination: stocks.parsed
-    content-type: application/*+avro
-    consumer:
-      headerMode: raw
-      startOffset: earliest
+      schema.registry.url: "http://172.18.0.1:8081"
+      key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      auto.register.schemas: true
+  bindings:
+    output:
+      destination: stocks.count
+      content-type: application/*+avro
+      producer:
+        keySerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        headerMode: raw
+        useNativeEncoding: true
+    input:
+      group: so8300replay1
+      destination: stocks.parsed
+      content-type: application/*+avro
+      consumer:
+        headerMode: raw
+        startOffset: earliest
 spring.cloud.stream.schemaRegistryClient:
   endpoint: 172.18.0.1:8081
 spring.cloud.stream.schema.avro:
