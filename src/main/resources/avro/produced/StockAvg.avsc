@@ -1,0 +1,34 @@
+{
+  "type": "record",
+  "name": "StockAvg",
+  "namespace": "demo.kstreams",
+  "fields": [
+    {
+      "name": "Symbol",
+      "type": "string"
+    },
+    {
+      "name": "Date",
+      "type": {
+        "type": "long",
+        "connect.version": 1,
+        "connect.name": "org.apache.kafka.connect.data.Timestamp",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "avg10days",
+      "type": {
+        "type": "bytes",
+        "scale": 3,
+        "precision": 64,
+        "connect.parameters": {
+          "scale": "3"
+        },
+        "connect.name": "org.apache.kafka.connect.data.Decimal",
+        "logicalType": "decimal"
+      }
+    }
+  ],
+  "connect.name": "demo.kstreams.StockAvg"
+}

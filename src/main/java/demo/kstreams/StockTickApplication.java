@@ -2,6 +2,7 @@ package demo.kstreams;
 
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,6 +15,8 @@ import org.springframework.cloud.stream.schema.client.SchemaRegistryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.handler.annotation.SendTo;
 
+import java.nio.ByteBuffer;
+
 @SpringBootApplication
 @EnableBinding(KStreamProcessor.class)
 @EnableAutoConfiguration
@@ -25,9 +28,9 @@ public class StockTickApplication {
 
     @StreamListener("input")
     @SendTo("output")
-    public KStream<CharSequence, Long> process(KStream<StockKey, StockTick> input) {
-        return input.map((key, value) -> new KeyValue<>(key.getSymbol(), value))
-                .groupByKey().count().toStream();
+    public KStream<StockKey, StockAvg> process(KStream<StockKey, StockTick> input) {
+        return input.map((key, value) -> new KeyValue<>(key,
+                StockAvg.newBuilder().setSymbol(key.getSymbol()).setDate(DateTime.now()).setAvg10days(ByteBuffer.wrap(new byte[]{0,0,2})).build()));
     }
 
     @Bean
@@ -36,6 +39,5 @@ public class StockTickApplication {
         client.setEndpoint(endpoint);
         return client;
     }
-
 
 }
